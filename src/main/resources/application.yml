@@ -1,0 +1,39 @@
+#example how to configure map in application.yml
+clientSecrets:
+  123-456-789: ${VAL1}
+  231-456-789: bca-def-ghi
+  321-456-789: cab-def-ghi
+
+#path where uploaded files will be saved.
+fileUploadPath: "/Users/bnagpal1/temp"
+
+#spring config
+spring:
+  servlet:
+    multipart:
+      maxFileSize: 20MB
+      maxRequestSize: 20MB
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: loggers
+  loggers:
+    enabled: true
+
+#logging:
+#  level:
+#    org.zalando.logbook: TRACE
+
+#logbook:
+#  obfuscate:
+#    headers:
+#      - Authorization
+#      - X-Secret
+#      - user-agent
+#    parameters:
+#      - access_token
+#      - password
+#  write:
+#    chunk-size: 1000

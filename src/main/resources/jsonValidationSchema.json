@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Product schema",
+  "description": "Schema for products descriptions",
+  "type": "object",
+  "required": [
+    "products"
+  ],
+  "properties": {
+    "products": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "integer",
+            "description": "Id of the product"
+          },
+          "productName": {
+            "type": "string",
+            "description": "name of the product"
+          }
+        },
+        "required": [
+          "productId",
+          "productName"
+        ]
+      }
+    }
+  }
+}

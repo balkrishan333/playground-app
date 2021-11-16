@@ -1,0 +1,16 @@
+{
+  "products": [
+    {
+      "productId": 123,
+      "productName": "p1"
+    },
+    {
+      "productId": 345,
+      "productName": "p2"
+    },
+    {
+      "productId": 456,
+      "productName": "p3"
+    }
+  ]
+}
