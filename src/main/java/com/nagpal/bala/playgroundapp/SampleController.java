@@ -59,10 +59,6 @@ public class SampleController {
         } finally {
             span.end(); // closing the scope does not end the span, this has to be done manually
         }
-//        Span span = Span.current();
-//        span.setAttribute("name", "bala");
-//        span.updateName("Balkrishan");
-//        String response = tracing1();
         return response;
     }
 
