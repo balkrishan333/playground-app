@@ -1,6 +1,14 @@
 package com.nagpal.bala.playgroundapp;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nagpal.bala.playgroundapp.opentelemetry.OpenTelemetryFactory;
+import io.opentelemetry.api.OpenTelemetry;
+import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.SpanContext;
+import io.opentelemetry.api.trace.StatusCode;
+import io.opentelemetry.api.trace.Tracer;
+import io.opentelemetry.context.Context;
+import io.opentelemetry.context.Scope;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.logging.log4j.ThreadContext;
@@ -33,7 +41,29 @@ public class SampleController {
 
     @RequestMapping(method = RequestMethod.GET, path = "/tracing")
     public String tracing() {
-        return tracing1();
+        OpenTelemetry openTelemetry = OpenTelemetryFactory.getInstance();
+        Tracer tracer =
+                openTelemetry.getTracer("");
+
+        String response = null;
+        Span span = tracer.spanBuilder("balkrishan span").startSpan();
+        span.setAttribute("messageType", "v2");
+        span.setAttribute("tenant", "dummy tenant");
+        System.out.println("span = " + span);
+        // put the span into the current Context
+        try (Scope scope = span.makeCurrent()) {
+            // your use case
+             response = tracing1();
+        } catch (Throwable t) {
+            span.setStatus(StatusCode.ERROR, "Change it to your error message");
+        } finally {
+            span.end(); // closing the scope does not end the span, this has to be done manually
+        }
+//        Span span = Span.current();
+//        span.setAttribute("name", "bala");
+//        span.updateName("Balkrishan");
+//        String response = tracing1();
+        return response;
     }
 
     private String tracing1() {

@@ -61,12 +61,25 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
 	//open telemetry
-//	implementation platform("io.opentelemetry:opentelemetry-bom:1.9.0")
-//	implementation platform('io.opentelemetry:opentelemetry-bom-alpha:1.9.0-alpha')
-//
-//	implementation('io.opentelemetry:opentelemetry-api')
-//	implementation('io.opentelemetry:opentelemetry-api-metrics')
-//	implementation group: 'io.opentelemetry', name: 'opentelemetry-proto', version: '1.7.1-alpha'
+	implementation('io.opentelemetry:opentelemetry-api:1.7.0')
+	implementation('io.opentelemetry:opentelemetry-extension-annotations:1.7.0')
+	//open telemetry sdk libs
+	implementation group: 'io.opentelemetry', name: 'opentelemetry-sdk', version: '1.7.0'
+	implementation group: 'io.opentelemetry', name: 'opentelemetry-sdk-common', version: '1.7.0'
+	implementation group: 'io.opentelemetry', name: 'opentelemetry-sdk-trace', version: '1.7.0'
+	implementation files('/Users/bnagpal1/dev-tools/opentelemetry-exporter-jaeger-1.7.0.jar')
+	implementation files('/Users/bnagpal1/dev-tools/opentelemetry-exporter-otlp-common-1.10.0-SNAPSHOT.jar')
+
+	implementation group: 'io.grpc', name: 'grpc-api', version: '1.42.1'
+	implementation group: 'io.grpc', name: 'grpc-netty', version: '1.42.1'
+	implementation group: 'io.grpc', name: 'grpc-stub', version: '1.42.1'
+
+
+
+//	implementation group: 'io.opentelemetry', name: 'opentelemetry-exporters-otlp', version: '0.9.1'
+//	implementation group: 'io.opentelemetry', name: 'opentelemetry-exporters-jaeger', version: '0.9.1'
+
+
 
 }
 
