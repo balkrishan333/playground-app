@@ -1,17 +1,11 @@
 package com.nagpal.bala.playgroundapp;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nagpal.bala.playgroundapp.opentelemetry.OpenTelemetryFactory;
 import io.opentelemetry.api.OpenTelemetry;
 import io.opentelemetry.api.trace.Span;
-import io.opentelemetry.api.trace.SpanContext;
 import io.opentelemetry.api.trace.StatusCode;
 import io.opentelemetry.api.trace.Tracer;
-import io.opentelemetry.context.Context;
 import io.opentelemetry.context.Scope;
-import lombok.Getter;
-import lombok.Setter;
-import org.apache.logging.log4j.ThreadContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.StringWriter;
-import java.time.LocalDateTime;
 import java.util.Map;
 
 @RestController
