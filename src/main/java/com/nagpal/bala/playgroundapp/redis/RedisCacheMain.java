@@ -29,6 +29,44 @@ public class RedisCacheMain {
 //        System.out.println("value = " + value);
 
         Map<String, String> clientCache = new ConcurrentHashMap<>();
+//        CacheFrontend<String, String> frontend = ClientSideCaching.enable(CacheAccessor.forMap(clientCache), connection,
+//                TrackingArgs.Builder.enabled().bcast().prefixes("track:"));
+//
+//        while(true) {
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+////            syncCommands.clientCaching(true);
+//            String clinetValue = frontend.get("track:key");
+//            System.out.println("clinetValue = " + clinetValue);
+//        }
+          optInClientCache(syncCommands, clientCache, connection);
+          bcastClientCache(clientCache, connection);
+
+    }
+
+    private static void optInClientCache(RedisCommands<String, String> syncCommands,
+                                         Map<String, String> clientCache, StatefulRedisConnection<String, String> connection) {
+
+        CacheFrontend<String, String> frontend = ClientSideCaching.enable(CacheAccessor.forMap(clientCache), connection,
+                TrackingArgs.Builder.enabled().optin());
+
+        while(true) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            syncCommands.clientCaching(true);
+            String clinetValue = frontend.get("track:key");
+            System.out.println("clinetValue = " + clinetValue);
+        }
+    }
+
+    private static void bcastClientCache(Map<String, String> clientCache, StatefulRedisConnection<String, String> connection) {
+
         CacheFrontend<String, String> frontend = ClientSideCaching.enable(CacheAccessor.forMap(clientCache), connection,
                 TrackingArgs.Builder.enabled().bcast().prefixes("track:"));
 
@@ -41,6 +79,5 @@ public class RedisCacheMain {
             String clinetValue = frontend.get("track:key");
             System.out.println("clinetValue = " + clinetValue);
         }
-
     }
 }
