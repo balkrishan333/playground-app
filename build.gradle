@@ -67,8 +67,8 @@ dependencies {
 	implementation group: 'io.opentelemetry', name: 'opentelemetry-sdk', version: '1.7.0'
 	implementation group: 'io.opentelemetry', name: 'opentelemetry-sdk-common', version: '1.7.0'
 	implementation group: 'io.opentelemetry', name: 'opentelemetry-sdk-trace', version: '1.7.0'
-	implementation files('/Users/bnagpal1/dev-tools/opentelemetry-exporter-jaeger-1.7.0.jar')
-	implementation files('/Users/bnagpal1/dev-tools/opentelemetry-exporter-otlp-common-1.10.0-SNAPSHOT.jar')
+	implementation files('lib/opentelemetry-exporter-jaeger-1.7.0.jar')
+	implementation files('lib/opentelemetry-exporter-otlp-common-1.10.0-SNAPSHOT.jar')
 
 	implementation group: 'io.grpc', name: 'grpc-api', version: '1.42.1'
 	implementation group: 'io.grpc', name: 'grpc-netty', version: '1.42.1'
