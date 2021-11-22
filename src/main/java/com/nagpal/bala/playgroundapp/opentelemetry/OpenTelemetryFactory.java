@@ -17,7 +17,7 @@ public class OpenTelemetryFactory {
 
         SdkTracerProvider sdkTracerProvider = SdkTracerProvider.builder()
                 .addSpanProcessor(BatchSpanProcessor.builder(JaegerGrpcSpanExporter.builder().setEndpoint("http://jaeger:14250").build()).build())
-                .setResource(Resource.create(Attributes.builder().put("service.name", "balaService").build()))
+                .setResource(Resource.create(Attributes.builder().put("service.name", "playground-app").build()))
                 .build();
 
         OpenTelemetry openTelemetry = OpenTelemetrySdk.builder()
