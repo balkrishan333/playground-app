@@ -13,4 +13,4 @@ COPY lib/opentelemetry-javaagent-all-1.7.2.jar opentelemetry-javaagent-all.jar
 RUN pwd
 RUN ls -l
 #"-Dotel.javaagent.debug=true"
-ENTRYPOINT ["java","-Dotel.exporter=jaeger","-Dotel.metrics.exporter=none","-Dotel.exporter.jaeger.endpoint=jaeger:14250","-Dotel.exporter.jaeger.service.name=playground-app","-Dapplication.name=playground-app","-javaagent:/home/bala/opentelemetry-javaagent-all.jar","-jar","/home/bala/app.jar"]
+ENTRYPOINT ["java","-Dotel.traces.exporter=jaeger","-Dotel.exporter.jaeger.endpoint=http://jaeger:14250","-Dotel.service.name=playground-app","-javaagent:/home/bala/opentelemetry-javaagent-all.jar","-jar","/home/bala/app.jar"]

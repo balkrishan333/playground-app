@@ -98,9 +98,8 @@ public class SampleController {
         span.setAttribute("method", "tracing1");
 
         System.out.println("span = " + span);
-        System.out.println("span trace id = " + span.getSpanContext().getTraceId());
-        // put the span into the current Context
 
+        // put the span into the current Context
         try (Scope scope = span.makeCurrent()) {
             // your use case
         } catch (Throwable t) {
