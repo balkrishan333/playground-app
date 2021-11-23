@@ -40,39 +40,48 @@ public class SampleController {
         // rather than calling getTracer repeatedly
         Tracer tracer = openTelemetry.getTracer("");
 
+        //Global open telemetry, as suggested by community, does not work
+//        OpenTelemetry globalOpenTelemetry = GlobalOpenTelemetry.get();
+//        Tracer tracer = globalOpenTelemetry.getTracer("");
+
         System.out.println("tracer = " + tracer);
 
-      /*  Span parentSpan = Span.current();
+        //get current span before creating new one. This is just to get current trace id. not used anywhere
+        Span parentSpan = Span.current();
         System.out.println("parentSpan = " + parentSpan);
-        System.out.println("parent span trace id = " + parentSpan.getSpanContext().getTraceId());*/
+        System.out.println("parent span trace id = " + parentSpan.getSpanContext().getTraceId());
 
         String response = null;
+
+        //create new span
         Span span = tracer.spanBuilder("customSpan")
-//                    .addLink(parentSpan.getSpanContext())
                     .setSpanKind(SpanKind.SERVER).startSpan();
 
+        //create tags in span
         span.setAttribute("messageType", "v2");
         span.setAttribute("tenant", "dummy tenant");
 
-        //add event
-        span.addEvent("enqueued item", Attributes.of(
-                AttributeKey.stringKey("item.id"), "item.id",
-                AttributeKey.stringKey("queue.id"), "queue.id",
-                AttributeKey.stringKey("queue.length"), "queue.Length()"
+        //add event (logs) in span
+        span.addEvent("event_name", Attributes.of(
+                AttributeKey.stringKey("item_key1"), "item_key1",
+                AttributeKey.stringKey("item_key2"), "item_key2",
+                AttributeKey.stringKey("item_key3"), "item_key3"
         ));
 
         System.out.println("span = " + span);
         System.out.println("span trace id = " + span.getSpanContext().getTraceId());
+
         // put the span into the current Context
         try (Scope scope = span.makeCurrent()) {
             // your use case
-             response = tracing1();
+             response = tracing1(tracer);
         } catch (Throwable t) {
             span.setStatus(StatusCode.ERROR, "Change it to your error message");
         } finally {
             span.end(); // closing the scope does not end the span, this has to be done manually
         }
-           // Changing the existing span does not work (PropagationSpan) . Need to create a new span for adding information.
+
+        // Changing the existing span does not work (PropagationSpan) . Need to create a new span for adding information.
         /*Span span2 = Span.current();
         span2.setAttribute("messageType", "v2");
         span2.setAttribute("tenant", "dummy tenant");
@@ -81,7 +90,24 @@ public class SampleController {
         return response;
     }
 
-    private String tracing1() {
+    private String tracing1(Tracer tracer) {
+
+        Span span = tracer.spanBuilder("customSpan_2")
+                .setSpanKind(SpanKind.SERVER).startSpan();
+
+        span.setAttribute("method", "tracing1");
+
+        System.out.println("span = " + span);
+        System.out.println("span trace id = " + span.getSpanContext().getTraceId());
+        // put the span into the current Context
+
+        try (Scope scope = span.makeCurrent()) {
+            // your use case
+        } catch (Throwable t) {
+            span.setStatus(StatusCode.ERROR, "Change it to your error message");
+        } finally {
+            span.end(); // closing the scope does not end the span, this has to be done manually
+        }
         return "tracing 1 : " + tracing2();
     }
 

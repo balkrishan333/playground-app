@@ -9,7 +9,8 @@ RUN mkdir ${WORK_DIR}
 RUN mkdir ${WORK_DIR}/config
 WORKDIR ${WORK_DIR}
 COPY build/libs/${app_name}-${app_version}.jar app.jar
-COPY lib/opentelemetry-javaagent-all.jar opentelemetry-javaagent-all.jar
+COPY lib/opentelemetry-javaagent-all-1.7.2.jar opentelemetry-javaagent-all.jar
 RUN pwd
 RUN ls -l
-ENTRYPOINT ["java","-Dotel.exporter=jaeger","-Dotel.exporter.jaeger.endpoint=jaeger:14250","-Dotel.exporter.jaeger.service.name=playground-app","-Dapplication.name=playground-app","-javaagent:/home/bala/opentelemetry-javaagent-all.jar","-jar","/home/bala/app.jar"]
+#"-Dotel.javaagent.debug=true"
+ENTRYPOINT ["java","-Dotel.exporter=jaeger","-Dotel.metrics.exporter=none","-Dotel.exporter.jaeger.endpoint=jaeger:14250","-Dotel.exporter.jaeger.service.name=playground-app","-Dapplication.name=playground-app","-javaagent:/home/bala/opentelemetry-javaagent-all.jar","-jar","/home/bala/app.jar"]
