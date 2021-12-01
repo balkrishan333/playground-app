@@ -13,7 +13,7 @@ import io.opentelemetry.sdk.trace.export.BatchSpanProcessor;
 
 public class OpenTelemetryFactory {
 
-    public static OpenTelemetry getInstance() {
+    /*public static OpenTelemetry getInstance() {
 
         SdkTracerProvider sdkTracerProvider = SdkTracerProvider.builder()
                 .addSpanProcessor(BatchSpanProcessor.builder(JaegerGrpcSpanExporter.builder().setEndpoint("http://jaeger:14250").build()).build())
@@ -26,5 +26,5 @@ public class OpenTelemetryFactory {
                 .buildAndRegisterGlobal();
 
         return openTelemetry;
-    }
+    }*/
 }

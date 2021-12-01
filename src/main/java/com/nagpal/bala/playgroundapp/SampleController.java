@@ -35,14 +35,15 @@ public class SampleController {
 
     @RequestMapping(method = RequestMethod.GET, path = "/tracing")
     public String tracing() {
-        OpenTelemetry openTelemetry = OpenTelemetryFactory.getInstance();
+//        OpenTelemetry openTelemetry = OpenTelemetryFactory.getInstance();
         //We recommend calling getTracer once per component during initialization and retaining a handle to the tracer,
         // rather than calling getTracer repeatedly
-        Tracer tracer = openTelemetry.getTracer("");
+//        Tracer tracer = openTelemetry.getTracer("");
 
-        //Global open telemetry, as suggested by community, does not work
-//        OpenTelemetry globalOpenTelemetry = GlobalOpenTelemetry.get();
-//        Tracer tracer = globalOpenTelemetry.getTracer("");
+        //Global open telemetry, as suggested by community. It works only if SDK initialization code in OpenTelemetryFactory
+        // is removed
+        OpenTelemetry globalOpenTelemetry = GlobalOpenTelemetry.get();
+        Tracer tracer = globalOpenTelemetry.getTracer("");
 
         System.out.println("tracer = " + tracer);
 
