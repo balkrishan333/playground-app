@@ -22,6 +22,9 @@ management:
   loggers:
     enabled: true
 
+#pulsar
+pulsarURL: pulsar://localhost:6650
+
 #logging:
 #  level:
 #    org.zalando.logbook: TRACE

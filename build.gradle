@@ -74,6 +74,9 @@ dependencies {
 	implementation group: 'io.grpc', name: 'grpc-netty', version: '1.42.1'
 	implementation group: 'io.grpc', name: 'grpc-stub', version: '1.42.1'
 
+	//pulsar
+	implementation 'org.apache.pulsar:pulsar-client:2.8.1'
+
 }
 
 test {

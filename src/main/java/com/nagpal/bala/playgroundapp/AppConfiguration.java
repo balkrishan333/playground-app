@@ -16,4 +16,6 @@ public class AppConfiguration {
     private Map<String, String> clientSecrets;
 
     private String fileUploadPath;
+
+    private String pulsarURL;
 }
