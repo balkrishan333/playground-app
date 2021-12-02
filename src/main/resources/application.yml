@@ -23,7 +23,8 @@ management:
     enabled: true
 
 #pulsar
-pulsarURL: pulsar://localhost:6650
+pulsarURL: pulsar://standalone:6650
+#pulsarURL: pulsar://localhost:6650
 
 #logging:
 #  level:

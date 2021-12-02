@@ -22,6 +22,7 @@ public class PulsarProducer {
         try {
             producer = pulsarClient.newProducer()
                     .topic(topic)
+                    .intercept(new OTelPulsarProducerInterceptor())
                     .create();
         } catch (PulsarClientException e) {
             log.error(e.getMessage());

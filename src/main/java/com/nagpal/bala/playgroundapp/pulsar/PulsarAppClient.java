@@ -7,12 +7,13 @@ import org.apache.pulsar.client.api.PulsarClientException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Slf4j
+
 /*
     Responsible for connecting to pulsar and returns client which can be used by producer and consumer
     to send and receive messages.
  */
 @Component
+@Slf4j
 public final class PulsarAppClient {
 
     @Autowired
@@ -31,6 +32,7 @@ public final class PulsarAppClient {
                     .serviceUrl(appConfiguration.getPulsarURL())
                     .build();
 
+            log.info("Pulsar client connection acquired...");
         } catch (PulsarClientException e) {
             log.error("Can't connect to pulsar. Client initialization failed.");
             throw new RuntimeException(e);
