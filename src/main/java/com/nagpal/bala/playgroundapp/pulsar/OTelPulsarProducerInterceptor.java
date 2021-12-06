@@ -54,27 +54,24 @@ public class OTelPulsarProducerInterceptor implements ProducerInterceptor {
     private void storeContextOnMessage(Context context, Message<?> message) {
 
         TextMapSetter<Message<?>> setter =
-                new TextMapSetter<>(){
-
-                    @Override
-                    public void set(Message<?> message, String key, String value) {
-                        MessageImpl<?> msg = null;
-                        if (message instanceof MessageImpl<?>) {
-                            msg = (MessageImpl<?>) message;
-                        } else if (message instanceof TopicMessageImpl<?>) {
-                            msg = (MessageImpl<?>) ((TopicMessageImpl<?>) message).getMessage();
-                        }
-                        if (msg != null) {
-                            System.out.println("key = " + key);
-                            System.out.println("value = " + value);
-                            msg.getMessageBuilder().addProperties(
-                                    PulsarApi.KeyValue.newBuilder()
-                                            .setKey(key).setValue(value));
-                        }
+                (message1, key, value) -> {
+                    MessageImpl<?> msg = null;
+                    if (message1 instanceof MessageImpl<?>) {
+                        msg = (MessageImpl<?>) message1;
+                    } else if (message1 instanceof TopicMessageImpl<?>) {
+                        msg = (MessageImpl<?>) ((TopicMessageImpl<?>) message1).getMessage();
                     }
-
+                    if (msg != null) {
+                        System.out.println("key = " + key);
+                        System.out.println("value = " + value);
+                        msg.getMessageBuilder().addProperties(
+                                PulsarApi.KeyValue.newBuilder()
+                                        .setKey(key).setValue(value));
+                    }
                 };
 
+        //https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/context/api-propagators.md
+        //Cross-cutting concerns send their state to the next process using Propagator
         GlobalOpenTelemetry.getPropagators().getTextMapPropagator()
                 .inject(context, message, setter);
 
