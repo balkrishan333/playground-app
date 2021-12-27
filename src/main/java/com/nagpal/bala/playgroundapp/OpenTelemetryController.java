@@ -4,13 +4,16 @@ import com.nagpal.bala.playgroundapp.pulsar.PulsarConsumer;
 import com.nagpal.bala.playgroundapp.pulsar.PulsarProducer;
 import io.opentelemetry.api.GlobalOpenTelemetry;
 import io.opentelemetry.api.OpenTelemetry;
+import io.opentelemetry.api.baggage.Baggage;
 import io.opentelemetry.api.common.AttributeKey;
 import io.opentelemetry.api.common.Attributes;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.SpanKind;
 import io.opentelemetry.api.trace.StatusCode;
 import io.opentelemetry.api.trace.Tracer;
+import io.opentelemetry.context.Context;
 import io.opentelemetry.context.Scope;
+import io.opentelemetry.context.propagation.TextMapGetter;
 import io.opentelemetry.extension.annotations.WithSpan;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.pulsar.client.api.Consumer;
@@ -18,9 +21,12 @@ import org.apache.pulsar.client.api.Message;
 import org.apache.pulsar.client.api.MessageId;
 import org.apache.pulsar.client.api.PulsarClientException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -32,7 +38,7 @@ public final class OpenTelemetryController {
     private PulsarConsumer pulsarConsumer;
 
     @RequestMapping(method = RequestMethod.GET, path = "/tracing")
-    public String tracing() {
+    public String tracing(@RequestParam String param, @RequestHeader HttpHeaders headers) {
 
         { // This is using Open telemetry SDK. Should be used only if you are exposing the code as lib
             //OpenTelemetry openTelemetry = OpenTelemetryFactory.getInstance();
@@ -41,6 +47,11 @@ public final class OpenTelemetryController {
             //Tracer tracer = openTelemetry.getTracer("");
         }
 
+        for(String key : headers.keySet()) {
+            System.out.println("key = " + key + " , value = " + headers.get(key));
+        }
+
+        System.out.println("headers = " + headers.get("traceparent"));
 
         //Global open telemetry, as suggested by community. It works only if SDK initialization code in OpenTelemetryFactory
         // is removed
@@ -56,6 +67,10 @@ public final class OpenTelemetryController {
 
         String response = null;
 
+        Baggage currentBaggage = Baggage.current();
+        System.out.println("currentBaggage = " + currentBaggage);
+        System.out.println("currentBaggage.asMap().get(\"username\") = " + currentBaggage.asMap().get("username").getValue());
+
         //create new span
         Span span = tracer.spanBuilder("customSpan")
                             .setSpanKind(SpanKind.SERVER)
@@ -64,6 +79,7 @@ public final class OpenTelemetryController {
         //create tags in span
         span.setAttribute("messageType", "v2");
         span.setAttribute("tenant", "dummy tenant");
+        span.setAttribute("param", param);
 
         //add event (logs) in span
         span.addEvent("event_name", Attributes.of(
