@@ -1,6 +1,8 @@
 package com.nagpal.bala.playgroundapp.azure;
 
+import com.azure.core.http.rest.PagedIterable;
 import com.azure.storage.blob.*;
+import com.azure.storage.blob.models.BlobItem;
 import com.azure.storage.blob.models.BlobProperties;
 import com.azure.storage.blob.specialized.BlockBlobClient;
 import com.nagpal.bala.playgroundapp.json.validation.ValidateJSON;
@@ -30,7 +32,7 @@ public final class BlobStorageApp {
     private static void downloadFileusingURL() {
         BlobClientBuilder blobClientBuilder = new BlobClientBuilder();
         blobClientBuilder.connectionString(CONNECTION_STRING_DEV_02);
-        //blobClientBuilder.blobName("last");
+        //blobClientBuilder.blobName("las   t");
         blobClientBuilder.endpoint("https://odxcentralusappsadev02.blob.core.windows.net/azure-webjobs-hosts/synctriggers/odx-centralus-dav-fa-dev02/last");
         BlobClient blobClient = blobClientBuilder.buildClient();
         blobClient.downloadToFile("/Users/bnagpal1/temp/url.txt");
@@ -63,6 +65,14 @@ public final class BlobStorageApp {
                 throw new RuntimeException(e);
             }
         }
+
+        {
+            PagedIterable<BlobItem> blobItems = containerClient.listBlobs();
+            blobItems.forEach(blobItem -> {
+                System.out.println("blobItem.getName() = " + blobItem.getName());
+            });
+        }
+
 
         //Blob handle to a blob object
         //  BlobClient blobClient = containerClient.getBlobClient(BLOB_NAME);

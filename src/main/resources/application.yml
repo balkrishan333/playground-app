@@ -13,12 +13,30 @@ spring:
     multipart:
       maxFileSize: 20MB
       maxRequestSize: 20MB
+  datasource:
+    url: jdbc:postgresql://localhost:5432/playground
+    username: postgres
+    password: password
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 5
+      connection-timeout: 5000
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+      show-sql: true
+    properties:
+      hibernate:
+        # required for fixing: no currentsessioncontext configured!
+        current_session_context_class: thread
 
 management:
   endpoints:
     web:
       exposure:
-        include: loggers
+        include: "loggers,health,info"
+
   loggers:
     enabled: true
 

@@ -33,9 +33,18 @@ repositories {
 }
 
 dependencies {
+
+	//spring boot starters
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	//postgresql
+	implementation 'org.postgresql:postgresql'
+
+	//lombok
 	compileOnly 'org.projectlombok:lombok'
+
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -86,9 +95,12 @@ dependencies {
 	// https://mvnrepository.com/artifact/io.opentelemetry/opentelemetry-semconv
 	implementation group: 'io.opentelemetry', name: 'opentelemetry-api-trace', version: '0.13.1'
 
-
 	//pulsar
 	implementation 'org.apache.pulsar:pulsar-client:2.7.2'
+
+	//MapStruct for Entity to DTO
+	implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 
 }
 
