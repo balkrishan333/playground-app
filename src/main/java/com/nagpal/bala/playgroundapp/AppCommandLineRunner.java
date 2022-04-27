@@ -20,7 +20,7 @@ public class AppCommandLineRunner implements CommandLineRunner {
 
         log.info("Retrieving message from topic: " + TOPIC);
 
-        //Consumer<byte[]> consumer = pulsarConsumer.getConsumer(TOPIC);
+//        Consumer<byte[]> consumer = pulsarConsumer.getConsumer(TOPIC);
     }
 }
 
