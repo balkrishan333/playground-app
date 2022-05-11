@@ -44,6 +44,15 @@ management:
 #pulsarURL: pulsar://standalone:6650
 pulsarURL: pulsar://localhost:6650
 
+# by default /graphiql
+graphiql:
+  mapping: /app-ui
+
+# by default graphql
+graphql:
+  servlet:
+    mapping: /graphql-new
+
 #logging:
 #  level:
 #    org.zalando.logbook: TRACE
