@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package com.nagpal.bala.playgroundapp.protobuf.generated;
+
+enum EYE_COLOR {
+  EYE_COLOR_UNDEFINED = 0;
+  EYE_COLOR_BLUE = 1;
+  EYE_COLOR_GREEN = 2;
+  EYE_COLOR_BROWN = 3;
+}
+
+message Enumurations {
+  EYE_COLOR eye_color = 1;
+}
