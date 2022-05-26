@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option java_package = "com.nagpal.bala.playgroundapp.grpc.protobuf.generated";
+
+message Dummy {
+  string name = 1;
+}
+
+service DummyService {
+
+}

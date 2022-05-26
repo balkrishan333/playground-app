@@ -45,19 +45,39 @@ repositories {
 }
 
 protobuf {
-	/*
-		customize output path of java files. This is required because intellij does not
-		read from default output path.
 
-		To further put classes in required package, added package statement in proto files
+	/*
+		Default location to generate files is buildDir/generated/src
+		If you need to use default dir, add following line in build.gradle to make sure that directory is
+		treated as src directory and is available during compilation
+
+		sourceSets.main.java.srcDir new File(buildDir, 'generated/source')
+
+		if you want to customize the location for generated code put following under protobuf block in build.gradle
+
+		generatedFilesBaseDir = "$projectDir/src"
 
 	 */
-	generatedFilesBaseDir = "$projectDir/src"
+
 	protoc {
 		// Download from repositories
 		artifact = 'com.google.protobuf:protoc:3.19.4'
 	}
+
+	plugins {
+		grpc {
+			artifact = 'io.grpc:protoc-gen-grpc-java:1.45.1'
+		}
+	}
+	generateProtoTasks {
+		all()*.plugins {
+			grpc {}
+		}
+	}
 }
+
+
+sourceSets.main.java.srcDir new File(buildDir, 'generated/source')
 
 dependencies {
 
@@ -138,6 +158,12 @@ dependencies {
 	//protobuf
 	implementation group: 'com.google.protobuf', name: 'protobuf-java', version: '3.19.4'
 	implementation group: 'com.google.protobuf', name: 'protobuf-java-util', version: '3.19.4'
+
+	//gRPC
+	runtimeOnly 'io.grpc:grpc-netty-shaded:1.45.1'
+	implementation 'io.grpc:grpc-protobuf:1.45.1'
+	implementation 'io.grpc:grpc-stub:1.45.1'
+	compileOnly 'org.apache.tomcat:annotations-api:6.0.53' // necessary for Java 9+
 }
 
 test {
