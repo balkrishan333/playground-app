@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option java_package = "com.nagpal.bala.playgroundapp.grpc.protobuf.generated";
+option java_multiple_files = true;
+
+message SumNumbersRequest {
+  int32 one = 1;
+  int32 two =2;
+}
+
+message SumNumbersResponse {
+  int32 result =1;
+}
+
+service SumNumbersService {
+  rpc sumNumbers(SumNumbersRequest) returns(SumNumbersResponse);
+}

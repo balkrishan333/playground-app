@@ -5,12 +5,16 @@ import io.grpc.ServerBuilder;
 
 import java.io.IOException;
 
-public class GreetingServer {
+public class GRPCServer {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         int port = 5051;
 
-            Server server = ServerBuilder.forPort(port).build();
+            Server server = ServerBuilder
+                    .forPort(port)
+                    .addService(new GreetingServiceImpl())
+                    .addService(new SumNumbersServiceImpl())
+                    .build();
             server.start();
 
         System.out.println("Server started on port : " + port);

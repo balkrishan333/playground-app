@@ -19,8 +19,12 @@ public class StudentResponse {
 	private String street;
 	private String city;
 	private List<SubjectResponse> learningSubjects;
+
+	//This is not exposed in schema as this is only required for resolver
+	private Student student;
 	
 	public StudentResponse (Student student) {
+		this.student = student;
 		this.id = student.getId();
 		this.firstName = student.getFirstName();
 		this.lastName = student.getLastName();
@@ -28,13 +32,14 @@ public class StudentResponse {
 		
 		this.street = student.getAddress().getStreet();
 		this.city = student.getAddress().getCity();
-		
-		if (student.getLearningSubjects() != null) {
-			learningSubjects = new ArrayList<SubjectResponse>();
+
+		//This is moved to resolver, and resolver will be filling data
+		/*if (student.getLearningSubjects() != null) {
+			learningSubjects = new ArrayList<>();
 			for (Subject subject: student.getLearningSubjects()) {
 				learningSubjects.add(new SubjectResponse(subject));
 			}
-		}
+		}*/
 	}
 
 }
