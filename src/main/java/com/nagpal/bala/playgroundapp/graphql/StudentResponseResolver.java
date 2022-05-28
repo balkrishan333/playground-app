@@ -13,13 +13,15 @@ import java.util.List;
 @Service
 public class StudentResponseResolver implements GraphQLResolver<StudentResponse> {
 
-    public List<SubjectResponse> getLearningSubjects(StudentResponse studentResponse) {
+    public List<SubjectResponse> getLearningSubjects(StudentResponse studentResponse, List<String> subjectNameFilter) {
 
         List<SubjectResponse> learningSubjects = new ArrayList<>();
         Student student = studentResponse.getStudent();
 
         for (Subject subject: student.getLearningSubjects()) {
-            learningSubjects.add(new SubjectResponse(subject));
+            if (subjectNameFilter.contains(subject.getSubjectName())) {
+                learningSubjects.add(new SubjectResponse(subject));
+            }
         }
         return learningSubjects;
     }
