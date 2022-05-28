@@ -12,4 +12,14 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
         responseObserver.onNext(GreetingResponse.newBuilder().setResult("Hello " + greetingRequest.getFirstName()).build());
         responseObserver.onCompleted();
     }
+
+    @Override
+    public void greetManyTimes(GreetingRequest greetingRequest, StreamObserver<GreetingResponse> responseObserver) {
+        GreetingResponse response = GreetingResponse.newBuilder().setResult("Hello " + greetingRequest.getFirstName()).build();
+
+        for (int i = 0; i < 10; i++) {
+            responseObserver.onNext(response);
+        }
+        responseObserver.onCompleted();
+    }
 }

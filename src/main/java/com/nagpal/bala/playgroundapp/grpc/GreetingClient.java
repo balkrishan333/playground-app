@@ -16,7 +16,8 @@ public class GreetingClient {
                                     .build();
 
         //do something over the channel
-        doGreet(channel);
+//        doGreet(channel);
+        doGreetManyTimes(channel);
 
         System.out.println("Closing channel..");
         channel.shutdown();
@@ -28,5 +29,14 @@ public class GreetingClient {
         GreetingResponse response = stub.greet(GreetingRequest.newBuilder().setFirstName("Balkrishan").build());
 
         System.out.println(response.getResult());
+    }
+
+    private static void doGreetManyTimes(ManagedChannel channel) {
+        System.out.println("Inside Greet many times");
+        GreetingServiceGrpc.GreetingServiceBlockingStub stub = GreetingServiceGrpc.newBlockingStub(channel);
+
+        stub.greetManyTimes(GreetingRequest.newBuilder().setFirstName("Bala").build()).forEachRemaining(response -> {
+            System.out.println(response.getResult());
+        });
     }
 }

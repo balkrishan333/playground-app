@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option java_package = "com.nagpal.bala.playgroundapp.grpc.protobuf.generated";
+option java_multiple_files = true;
+
+message AlphabetRequest{
+  int32 number = 1;
+}
+
+message AlphabetResponse {
+  string char = 1;
+}
+
+service AlphabetService {
+  rpc alphabets(AlphabetRequest) returns (stream AlphabetResponse);
+}

@@ -14,6 +14,7 @@ public class GRPCServer {
                     .forPort(port)
                     .addService(new GreetingServiceImpl())
                     .addService(new SumNumbersServiceImpl())
+                    .addService(new AlphabetServiceImpl())
                     .build();
             server.start();
 
