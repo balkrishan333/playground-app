@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option java_package = "com.nagpal.bala.playgroundapp.grpc.protobuf.generated";
+option java_multiple_files = true;
+
+message AvgNumbersRequest {
+  uint32 number =1;
+}
+
+message AvgNumbersResponse {
+  double result = 1;
+}
+
+service AvgNumbers {
+  rpc avg(stream AvgNumbersRequest) returns (AvgNumbersResponse);
+}

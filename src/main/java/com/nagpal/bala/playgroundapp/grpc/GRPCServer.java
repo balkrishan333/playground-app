@@ -15,6 +15,7 @@ public class GRPCServer {
                     .addService(new GreetingServiceImpl())
                     .addService(new SumNumbersServiceImpl())
                     .addService(new AlphabetServiceImpl())
+                    .addService(new AvgNumbersServiceImpl())
                     .build();
             server.start();
 

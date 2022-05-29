@@ -5,10 +5,15 @@ import com.nagpal.bala.playgroundapp.grpc.protobuf.generated.GreetingResponse;
 import com.nagpal.bala.playgroundapp.grpc.protobuf.generated.GreetingServiceGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.stub.StreamObserver;
+
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 public class GreetingClient {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         ManagedChannel channel = ManagedChannelBuilder
                                     .forAddress("localhost", 5051)
@@ -17,7 +22,8 @@ public class GreetingClient {
 
         //do something over the channel
 //        doGreet(channel);
-        doGreetManyTimes(channel);
+//        doGreetManyTimes(channel);
+        longGreet(channel);
 
         System.out.println("Closing channel..");
         channel.shutdown();
@@ -38,5 +44,36 @@ public class GreetingClient {
         stub.greetManyTimes(GreetingRequest.newBuilder().setFirstName("Bala").build()).forEachRemaining(response -> {
             System.out.println(response.getResult());
         });
+    }
+
+    private static void longGreet(ManagedChannel channel) throws InterruptedException {
+        System.out.println("Inside LongGreet..");
+        GreetingServiceGrpc.GreetingServiceStub stub = GreetingServiceGrpc.newStub(channel);
+
+        CountDownLatch latch = new CountDownLatch(1);
+        List<String> names = List.of("Balkrishan", "Shikha", "Khwaish", "Etasha");
+        StreamObserver<GreetingRequest> stream = stub.longGreet(new StreamObserver<>() {
+            @Override
+            public void onNext(GreetingResponse response) {
+                System.out.println(response.getResult());
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onCompleted() {
+              latch.countDown();
+            }
+        });
+
+        for(String name : names) {
+            stream.onNext(GreetingRequest.newBuilder().setFirstName(name).build());
+        }
+
+        stream.onCompleted();
+        latch.await(3, TimeUnit.SECONDS);
     }
 }
