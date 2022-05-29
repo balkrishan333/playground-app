@@ -1,5 +1,6 @@
 package com.nagpal.bala.playgroundapp.graphql.model;
 
+import com.nagpal.bala.playgroundapp.graphql.request.CreateStudentRequest;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -29,4 +30,10 @@ public class Student {
 
     @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
     private List<Subject> learningSubjects;
+
+    public Student (CreateStudentRequest createStudentRequest) {
+        this.firstName = createStudentRequest.getFirstName();
+        this.lastName = createStudentRequest.getLastName();
+        this.email = createStudentRequest.getEmail();
+    }
 }
