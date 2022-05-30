@@ -10,6 +10,7 @@ import io.grpc.stub.StreamObserver;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 
 public class GreetingClient {
 
@@ -23,7 +24,8 @@ public class GreetingClient {
         //do something over the channel
 //        doGreet(channel);
 //        doGreetManyTimes(channel);
-        longGreet(channel);
+//        longGreet(channel);
+        greetEveryOne(channel);
 
         System.out.println("Closing channel..");
         channel.shutdown();
@@ -74,6 +76,34 @@ public class GreetingClient {
         }
 
         stream.onCompleted();
+        latch.await(3, TimeUnit.SECONDS);
+    }
+
+    private static void greetEveryOne(ManagedChannel channel) throws InterruptedException {
+        GreetingServiceGrpc.GreetingServiceStub stub = GreetingServiceGrpc.newStub(channel);
+
+        CountDownLatch latch = new CountDownLatch(1);
+        StreamObserver<GreetingRequest> stream = stub.greetEveryOne(new StreamObserver<>() {
+            @Override
+            public void onNext(GreetingResponse response) {
+                System.out.println(response.getResult());
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onCompleted() {
+                latch.countDown();
+            }
+        });
+
+        Stream.of("Balkrishan", "Shikha", "Khwaish", "Etasha").forEach(name -> {
+            stream.onNext(GreetingRequest.newBuilder().setFirstName(name).build());
+        });
+
         latch.await(3, TimeUnit.SECONDS);
     }
 }

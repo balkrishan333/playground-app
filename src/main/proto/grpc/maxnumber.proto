@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option java_package = "com.nagpal.bala.playgroundapp.grpc.protobuf.generated";
+option java_multiple_files = true;
+
+message MaxNumberRequest {
+  int32 number = 1;
+}
+
+message MaxNumberResponse {
+  int32 result =1;
+}
+
+service MaxNumberService {
+  rpc maxNumber(stream MaxNumberRequest) returns (stream MaxNumberResponse);
+}
