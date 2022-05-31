@@ -164,6 +164,7 @@ dependencies {
 	implementation 'io.grpc:grpc-protobuf:1.45.1'
 	implementation 'io.grpc:grpc-stub:1.45.1'
 	compileOnly 'org.apache.tomcat:annotations-api:6.0.53' // necessary for Java 9+
+	implementation group: 'io.grpc', name: 'grpc-services', version: '1.45.1' // required for gRPC reflection
 }
 
 test {
