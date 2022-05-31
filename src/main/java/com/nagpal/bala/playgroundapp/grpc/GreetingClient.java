@@ -3,8 +3,7 @@ package com.nagpal.bala.playgroundapp.grpc;
 import com.nagpal.bala.playgroundapp.grpc.protobuf.generated.GreetingRequest;
 import com.nagpal.bala.playgroundapp.grpc.protobuf.generated.GreetingResponse;
 import com.nagpal.bala.playgroundapp.grpc.protobuf.generated.GreetingServiceGrpc;
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
+import io.grpc.*;
 import io.grpc.stub.StreamObserver;
 
 import java.util.List;
@@ -25,7 +24,9 @@ public class GreetingClient {
 //        doGreet(channel);
 //        doGreetManyTimes(channel);
 //        longGreet(channel);
-        greetEveryOne(channel);
+//        greetEveryOne(channel);
+//        handleError(channel);
+        greetDeadLine(channel);
 
         System.out.println("Closing channel..");
         channel.shutdown();
@@ -105,5 +106,44 @@ public class GreetingClient {
         });
 
         latch.await(3, TimeUnit.SECONDS);
+    }
+
+    private static void handleError(ManagedChannel channel) {
+        GreetingServiceGrpc.GreetingServiceBlockingStub stub = GreetingServiceGrpc.newBlockingStub(channel);
+
+        try {
+            stub.hanldeError(GreetingRequest.newBuilder().setFirstName("bad").build());
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+
+        GreetingResponse response = stub.hanldeError(GreetingRequest.newBuilder().setFirstName("Bala").build());
+        System.out.println(response.getResult());
+    }
+
+    private static void greetDeadLine(ManagedChannel channel) {
+        GreetingServiceGrpc.GreetingServiceBlockingStub stub = GreetingServiceGrpc.newBlockingStub(channel);
+
+         GreetingResponse response =       stub
+                                        .withDeadline(Deadline.after(3, TimeUnit.SECONDS))
+                                        .greetWithDeadline(GreetingRequest.newBuilder().setFirstName("Balkrishan").build());
+
+        System.out.println(response.getResult());
+
+        try {
+            response = stub
+                .withDeadline(Deadline.after(1, TimeUnit.SECONDS))
+                .greetWithDeadline(GreetingRequest.newBuilder().setFirstName("Balkrishan").build());
+
+            System.out.println(response.getResult());
+
+        } catch (StatusRuntimeException e) {
+            if (e.getStatus().getCode() == Status.Code.DEADLINE_EXCEEDED) {
+                System.out.println("Deadline exceeded");
+            } else {
+                e.printStackTrace();
+            }
+        }
+
     }
 }
