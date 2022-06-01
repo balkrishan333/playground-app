@@ -6,10 +6,12 @@ import java.util.List;
 import com.nagpal.bala.playgroundapp.graphql.model.Student;
 import com.nagpal.bala.playgroundapp.graphql.model.Subject;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
 @Getter
+@NoArgsConstructor
 public class StudentResponse {
 
 	private long id;

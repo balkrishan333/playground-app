@@ -2,10 +2,12 @@ package com.nagpal.bala.playgroundapp.graphql.response;
 
 import com.nagpal.bala.playgroundapp.graphql.model.Subject;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class SubjectResponse {
 
 	private Long id;

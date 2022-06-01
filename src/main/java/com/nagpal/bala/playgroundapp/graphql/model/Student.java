@@ -2,6 +2,7 @@ package com.nagpal.bala.playgroundapp.graphql.model;
 
 import com.nagpal.bala.playgroundapp.graphql.request.CreateStudentRequest;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 @Data
 @Table(name = "student")
 @Entity
+@NoArgsConstructor
 public class Student {
 
     @Id

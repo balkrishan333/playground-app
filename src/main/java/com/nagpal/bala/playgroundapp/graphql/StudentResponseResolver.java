@@ -1,10 +1,10 @@
 package com.nagpal.bala.playgroundapp.graphql;
 
-import com.coxautodev.graphql.tools.GraphQLResolver;
 import com.nagpal.bala.playgroundapp.graphql.model.Student;
 import com.nagpal.bala.playgroundapp.graphql.model.Subject;
 import com.nagpal.bala.playgroundapp.graphql.response.StudentResponse;
 import com.nagpal.bala.playgroundapp.graphql.response.SubjectResponse;
+import graphql.kickstart.tools.GraphQLResolver;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

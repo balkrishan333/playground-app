@@ -1,8 +1,8 @@
 package com.nagpal.bala.playgroundapp.graphql;
 
-import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.nagpal.bala.playgroundapp.graphql.response.StudentResponse;
 import com.nagpal.bala.playgroundapp.graphql.service.StudentService;
+import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

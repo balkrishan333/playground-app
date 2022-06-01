@@ -48,11 +48,12 @@ pulsarURL: pulsar://localhost:6650
 graphiql:
   mapping: /app-ui
 
-# by default graphql
+# by default /graphql
 graphql:
   servlet:
-    mapping: /graphql-new
-
+    mapping: /graphql
+  client:
+    url: http://localhost:8080/graphql
 #logging:
 #  level:
 #    org.zalando.logbook: TRACE
