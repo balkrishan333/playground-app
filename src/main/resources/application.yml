@@ -15,7 +15,7 @@ spring:
       maxRequestSize: 20MB
   datasource:
     url: jdbc:postgresql://localhost:5432/playground
-    username: postgres
+    username: bnagpal1
     password: password
     hikari:
       minimum-idle: 1
