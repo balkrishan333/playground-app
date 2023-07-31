@@ -7,6 +7,7 @@ import com.azure.messaging.servicebus.ServiceBusReceiverClient;
 
 import java.time.Duration;
 import java.util.Iterator;
+import java.util.stream.IntStream;
 
 public class ServiceBusConsumer {
 
@@ -14,29 +15,43 @@ public class ServiceBusConsumer {
     public static final String TOPIC_NAME = "balatopic";
     public static final String SUBSCRIPTION = "app1";
 
-    public static void main(String[] args) {
-        ServiceBusConsumer consumer = new ServiceBusConsumer();
-        System.out.println(consumer.receive());
-    }
-
-    public String receive() {
-
-        System.out.println("Connection String: " + CONNECTION_STRING);
-        ServiceBusReceiverClient client =
+    private final ServiceBusReceiverClient client;
+    public ServiceBusConsumer() {
+        client =
                 new ServiceBusClientBuilder().connectionString(CONNECTION_STRING)
                         .transportType(AmqpTransportType.AMQP_WEB_SOCKETS)
                         .receiver().topicName(TOPIC_NAME)
                         .subscriptionName(SUBSCRIPTION)
                         .buildClient();
+    }
 
+    public static void main(String[] args) {
+        System.out.println("Connection String: " + CONNECTION_STRING);
+
+        ServiceBusConsumer consumer = new ServiceBusConsumer();
+        IntStream.of(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20).forEach(i -> {
+            System.out.println(consumer.receive());
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        consumer.closeClient();
+    }
+
+    public String receive() {
         Iterator<ServiceBusReceivedMessage> iterator = client.receiveMessages(1).stream().iterator();
-
-        String message = iterator.next().getBody().toString();
-        client.close();
+        ServiceBusReceivedMessage next = iterator.next();
+        String message = next.getBody().toString();
+        client.complete(next);
 
         return message;
 //        run();
-//        return "OK";
+    }
+
+    private void closeClient() {
+        client.close();
     }
 
     public void run() {

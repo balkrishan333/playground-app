@@ -10,30 +10,43 @@ import com.azure.messaging.servicebus.models.CreateMessageBatchOptions;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class ServiceBusProducer {
 
     public static final String CONNECTION_STRING = System.getenv("AZURE_SERVICEBUS_NAMESPACE_CONNECTION_STRING");
     public static final String TOPIC_NAME = "balatopic";
 
+    private final ServiceBusSenderClient client;
+
+    public ServiceBusProducer() {
+        client =
+                new ServiceBusClientBuilder().connectionString(CONNECTION_STRING).transportType(AmqpTransportType.AMQP_WEB_SOCKETS)
+                        .sender().topicName(TOPIC_NAME).buildClient();
+    }
+
     public static void main(String[] args) {
+        System.out.println("Connection String: " + CONNECTION_STRING);
+
         ServiceBusProducer producer = new ServiceBusProducer();
-        producer.send(String.valueOf(System.currentTimeMillis())+"-bala");
+        IntStream.range(0, 2).forEach(i -> {
+            producer.send(System.currentTimeMillis()+"---" + i);
+
+        });
+        producer.closeClient();
     }
 
     public void send(String message) {
 
-        System.out.println("Connection String: " + CONNECTION_STRING);
-        ServiceBusSenderClient client =
-                new ServiceBusClientBuilder().connectionString(CONNECTION_STRING).transportType(AmqpTransportType.AMQP_WEB_SOCKETS)
-                        .sender().topicName(TOPIC_NAME).buildClient();
-
         ServiceBusMessage busMessage = new ServiceBusMessage(message);
         client.sendMessage(busMessage);
 
-        System.out.println("Message sent.");
-        client.close();
+        System.out.println("Message sent..." + message);
       //  run();
+    }
+
+    private void closeClient() {
+        client.close();
     }
 
     public void run() {
