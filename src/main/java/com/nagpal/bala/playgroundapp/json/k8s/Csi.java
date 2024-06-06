@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "readOnly",
     "volumeAttributes"
 })
-@Generated("jsonschema2pojo")
+
 public class Csi {
 
     @JsonProperty("driver")

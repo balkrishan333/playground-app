@@ -3,7 +3,7 @@ package com.nagpal.bala.playgroundapp.json.k8s;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "spec"
 })
 
-public class Example {
+public class SparkApplication {
 
     @JsonProperty("apiVersion")
     private String apiVersion;

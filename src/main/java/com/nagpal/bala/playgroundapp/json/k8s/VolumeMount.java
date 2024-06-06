@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "name",
     "mountPath"
 })
-@Generated("jsonschema2pojo")
+
 public class VolumeMount {
 
     @JsonProperty("name")

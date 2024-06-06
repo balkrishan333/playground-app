@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "driver",
     "executor"
 })
-@Generated("jsonschema2pojo")
+
 public class Spec {
 
     @JsonProperty("type")

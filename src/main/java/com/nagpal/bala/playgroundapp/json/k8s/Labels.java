@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
     "version"
 })
-@Generated("jsonschema2pojo")
+
 public class Labels {
 
     @JsonProperty("version")

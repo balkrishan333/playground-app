@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "spark.history.fs.logDirectory",
     "spark.driver.extraJavaOptions"
 })
-@Generated("jsonschema2pojo")
+
 public class SparkConf {
 
     @JsonProperty("spark.eventLog.enabled")

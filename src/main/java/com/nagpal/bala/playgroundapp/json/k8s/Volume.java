@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "name",
     "csi"
 })
-@Generated("jsonschema2pojo")
+
 public class Volume {
 
     @JsonProperty("name")

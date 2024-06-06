@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "folderName",
     "mountOptions"
 })
-@Generated("jsonschema2pojo")
+
 public class VolumeAttributes {
 
     @JsonProperty("secretName")

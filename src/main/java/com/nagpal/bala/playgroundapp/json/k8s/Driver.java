@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "serviceAccount",
     "volumeMounts"
 })
-@Generated("jsonschema2pojo")
+
 public class Driver {
 
     @JsonProperty("cores")

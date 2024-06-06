@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "labels",
     "volumeMounts"
 })
-@Generated("jsonschema2pojo")
+
 public class Executor {
 
     @JsonProperty("cores")
@@ -30,9 +30,9 @@ public class Executor {
     @JsonProperty("memory")
     private String memory;
     @JsonProperty("labels")
-    private Labels__1 labels;
+    private Labels labels;
     @JsonProperty("volumeMounts")
-    private List<VolumeMount__1> volumeMounts;
+    private List<VolumeMount> volumeMounts;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
@@ -67,22 +67,22 @@ public class Executor {
     }
 
     @JsonProperty("labels")
-    public Labels__1 getLabels() {
+    public Labels getLabels() {
         return labels;
     }
 
     @JsonProperty("labels")
-    public void setLabels(Labels__1 labels) {
+    public void setLabels(Labels labels) {
         this.labels = labels;
     }
 
     @JsonProperty("volumeMounts")
-    public List<VolumeMount__1> getVolumeMounts() {
+    public List<VolumeMount> getVolumeMounts() {
         return volumeMounts;
     }
 
     @JsonProperty("volumeMounts")
-    public void setVolumeMounts(List<VolumeMount__1> volumeMounts) {
+    public void setVolumeMounts(List<VolumeMount> volumeMounts) {
         this.volumeMounts = volumeMounts;
     }
 

@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "onSubmissionFailureRetries",
     "onSubmissionFailureRetryInterval"
 })
-@Generated("jsonschema2pojo")
+
 public class RestartPolicy {
 
     @JsonProperty("type")

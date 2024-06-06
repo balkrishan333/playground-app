@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "name",
     "namespace"
 })
-@Generated("jsonschema2pojo")
+
 public class Metadata {
 
     @JsonProperty("name")
