@@ -2,7 +2,7 @@ package com.nagpal.bala.playgroundapp.graphql.model;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Data
 @Entity
