@@ -3,16 +3,11 @@ package com.nagpal.bala.playgroundapp.azure;
 import com.azure.core.http.rest.PagedIterable;
 import com.azure.storage.blob.*;
 import com.azure.storage.blob.models.BlobItem;
-import com.azure.storage.blob.models.BlobProperties;
 import com.azure.storage.blob.specialized.BlockBlobClient;
-import com.nagpal.bala.playgroundapp.json.validation.ValidateJSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.stream.Stream;
 
 public final class BlobStorageApp {
 

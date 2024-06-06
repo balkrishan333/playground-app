@@ -1,4 +1,4 @@
-package com.nagpal.bala.playgroundapp.json.validation;
+package com.nagpal.bala.playgroundapp.json;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
