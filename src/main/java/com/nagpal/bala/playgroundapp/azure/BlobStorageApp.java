@@ -13,7 +13,7 @@ public final class BlobStorageApp {
 
     private static final Logger logger = LoggerFactory.getLogger(BlobStorageApp.class);
 
-    private static final String CONNECTION_STRING_DEV_02 = "DefaultEndpointsProtocol=https;AccountName=odxcentralusappsadev02;AccountKey=bXvgzoX9Sar6LOEbKGr7cLsgpvU9E9fsCajjj+6NgcZ/vC1K/b1nU6HrAtvL7Eqky4MrMShHuNZQBl+5mWWjqQ==;EndpointSuffix=core.windows.net";
+    private static final String CONNECTION_STRING_DEV_02 = "<Connection-string-here>";
     private static final String CONTAINER_NAME = "bala";
     private static final String BLOB_NAME = "Performance.xlsx";
 
